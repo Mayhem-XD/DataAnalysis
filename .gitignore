@@ -2,6 +2,8 @@
 password.txt
 test.py
 test.ipynb
+roadapikey.txt
+kakaoapikey.txt
 
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
