@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>계산기</title>
+</head>
+<body style="margin: 40px;">
+    <h3>계산기</h3>
+    <hr>
+    <form action="/cacl" method="post">
+        <input type="number" name="num1">
+        <select name="op">
+            {% for op in op_list %}
+                <option value="{{op}}">{{op}}</option>
+            {% endfor %}
+        </select>
+        <input type="number" name="num2">
+        <input type="submit" value="=">
+    </form>
+</body>
+</html>

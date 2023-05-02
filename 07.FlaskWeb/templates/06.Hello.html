@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+</head>
+<body style="margin: 40px;">
+    {% if name %}
+        <h1>Hello {{name | upper()}}!!!</h1>
+    {% else %}
+        <h1>Hello World!!!</h1>
+    {% endif %}
+    <br><br>
+    <ul>    
+        {% for key,value in dt.items() %}
+            <li>{{key}} : {{value}}</li>
+        {% endfor %}
+    </ul>
+    <h3>Flask에서는 dt['key1'] 대신 dt.key1 과 같이 사용할 수  있음</h3>
+    <h3>{{dt.key1}}</h3>
+    <br><br>
+    {% for i in range(5) %}
+        <h4>{{i}}</h4>
+    {% endfor %}
+    <br><br>
+    <h3>{{item | default('item 값이 지정되지 않았을 때 사용되는 값')}}</h3>
+
+</body>
+</html>
