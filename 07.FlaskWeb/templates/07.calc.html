@@ -9,11 +9,11 @@
 <body style="margin: 40px;">
     <h3>계산기</h3>
     <hr>
-    <form action="/cacl" method="post">
+    <form action="/calc" method="post">
         <input type="number" name="num1">
         <select name="op">
             {% for op in op_list %}
-                <option value="{{op}}">{{op}}</option>
+                <option value="{{ op }}">{{ op }}</option>
             {% endfor %}
         </select>
         <input type="number" name="num2">
