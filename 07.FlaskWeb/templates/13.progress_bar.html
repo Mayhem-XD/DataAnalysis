@@ -1,0 +1,42 @@
+{% extends "13.bootstrap.html" %}
+{%block subtitle%}부트스트랩 프로그래스 바{%endblock%}
+{%block content%}
+
+    <div class="row mt-5 text-center">
+        <h2>3색 LED</h2>
+        <div class="col-2"></div>
+        <div class="col-8">
+            <table class="table">
+                <tr>
+                    <th style="width:20%; text-align:center;">색상</th>
+                    <th style="width:80%; text-align:center;">세기</th>
+                </tr>
+                <tr>
+                    <td style="text-align:center;">Red</td>
+                    <td>
+                        <div class="progress" style="height:30px">
+                            <div class="progress-bar bg-danger" style="width:80%">80%</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center;">Green</td>
+                    <td>
+                        <div class="progress" style="height:30px">
+                            <div class="progress-bar bg-success" style="width:60%">60%</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center;">Blue</td>
+                    <td>
+                        <div class="progress" style="height:30px">
+                            <div class="progress-bar" style="width:90%">90%</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-2"></div>
+    </div>
+{%endblock%}

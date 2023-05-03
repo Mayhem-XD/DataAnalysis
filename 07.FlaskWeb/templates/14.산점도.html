@@ -1,0 +1,32 @@
+{% extends "14.mybootstrap.html" %}
+{%block title%}산점도{%endblock%}
+{%block subtitle%}산점도{%endblock%}
+{%block content%}
+<form action="/scatter" method="post">
+    <table>
+        <tr>
+            <td>점의 갯수</td>
+            <td><input type="text" name="num"></td>
+        </tr>
+        <tr>
+            <td>X 평균</td>
+            <td><input type="text" name="mean"></td>
+        </tr>
+        <tr>
+            <td>X 표준편차</td>
+            <td><input type="text" name="std"></td>
+        </tr>
+        <tr>
+            <td>Y min</td>
+            <td><input type="text" name="min"></td>
+        </tr>
+        <tr>
+            <td>Y max</td>
+            <td><input type="text" name="max"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="확인"></td>
+        </tr>
+    </table>
+</form>
+{%endblock%}

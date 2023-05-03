@@ -1,0 +1,18 @@
+{% extends "14.mybootstrap.html" %}
+{%block title%}수원 Hot Places{%endblock%}
+{% block additional_head %}
+<style>
+    input {margin: 3px;}
+</style>
+{% endblock %}
+{%block subtitle%}수원 Hot Places{%endblock%}
+{%block content%}
+<form action="" method="post">
+    <table>
+        <input type="text" name="place1">
+        <input type="text" name="place2">
+        <input type="text" name="place3">
+        <input type="submit" value="제출">
+    </table>
+</form>
+{%endblock%}

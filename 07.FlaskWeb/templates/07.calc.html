@@ -13,7 +13,7 @@
         <input type="number" name="num1">
         <select name="op">
             {% for op in op_list %}
-                <option value="{{ op }}">{{ op }}</option>
+                <option value="{{ op }}">{% if loop.index == 3 %}selected{% endif %}{{ op }}</option>
             {% endfor %}
         </select>
         <input type="number" name="num2">

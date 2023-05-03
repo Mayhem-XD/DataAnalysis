@@ -1,0 +1,12 @@
+{% extends "14.mybootstrap.html" %}
+{%block title%}수원 Hot Places{%endblock%}
+{% block additional_head %}
+<style>
+    input {margin: 3px;}
+</style>
+{% endblock %}
+{%block subtitle%}수원 Hot Places{%endblock%}
+{%block content%}
+<iframe src="{{url_for('static',filename='img/Hotplaces.html')}}" frameborder="1" width="800px" height="500px"></iframe>
+    <button onclick="location.href='/hotplaces'">재실행</button>
+{%endblock%}

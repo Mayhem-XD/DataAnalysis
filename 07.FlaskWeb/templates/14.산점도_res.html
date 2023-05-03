@@ -1,0 +1,9 @@
+{% extends "14.mybootstrap.html" %}
+{%block title%}산점도{%endblock%}
+{%block subtitle%}산점도{%endblock%}
+{%block content%}
+    <h3>산점도 결과</h3><hr>
+    <img src="{{url_for('static',filename='img/scatter.png')}}" >
+    <br><br>
+    <button onclick="location.href='/scatter'">재실행</button>
+{%endblock%}
