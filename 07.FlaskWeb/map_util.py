@@ -4,7 +4,7 @@ from urllib.parse import quote
 import requests,json
 
 
-def hot_places(places):
+def hot_places(places, app):
     # 도로명 주소 구하기
     with open('D:/Workspace/03.DataAnalysis/04.지도시각화/data/roadapikey.txt') as f:
         road_key = f.read()
@@ -49,5 +49,5 @@ def hot_places(places):
         popup=folium.Popup(df.주소[i],max_width=200),
         tooltip=df.이름[i],
     ).add_to(places_map)
-    filename = os.path.join('app.static_folder','img/HotPlaces.html')
+    filename = os.path.join(app.static_folder,'img/HotPlaces.html')
     places_map.save(filename)
