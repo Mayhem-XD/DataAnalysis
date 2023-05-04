@@ -1,0 +1,32 @@
+{% extends "prototype/01.base.html" %}
+{%block title%}Siksin Crawling{%endblock%}
+{% block weather %}{{weather|safe()}}{% endblock %}
+{% block additional_head %}
+    <style>
+        tr {text-align: center;}
+        td {height: 50px; width: 200px; text-align: center; font-size: 20px;}
+        th {height: 50px; width: 200px; text-align: center; font-size: 20px;}
+    </style>
+{% endblock %}
+{% block subtitle %}식신 장안동 맛집{% endblock %}
+{%block content%}
+    <table class="table table-borderless" style="margin-bottom: 100px;">
+        <tr><hr>
+            <th>이미지</th>
+            <th>상호명</th>
+            <th>점수</th>
+            <th>위치</th>
+            <th>메뉴</th>
+        </tr>
+        {% for siksin in siksin_list %}
+        <tr>
+            <td><img src="{{siksin.img}}" height="50px"></td>
+            <td>{{siksin.title}}</td>
+            <td>{{siksin.score}}</td>
+            <td>{{siksin.location}}</td>
+            <td>{{siksin.menu}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{%endblock%}
