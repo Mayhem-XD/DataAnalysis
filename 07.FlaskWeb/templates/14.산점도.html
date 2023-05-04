@@ -2,31 +2,38 @@
 {%block title%}산점도{%endblock%}
 {%block subtitle%}산점도{%endblock%}
 {%block content%}
-<form action="/scatter" method="post">
-    <table>
-        <tr>
-            <td>점의 갯수</td>
-            <td><input type="text" name="num"></td>
-        </tr>
-        <tr>
-            <td>X 평균</td>
-            <td><input type="text" name="mean"></td>
-        </tr>
-        <tr>
-            <td>X 표준편차</td>
-            <td><input type="text" name="std"></td>
-        </tr>
-        <tr>
-            <td>Y min</td>
-            <td><input type="text" name="min"></td>
-        </tr>
-        <tr>
-            <td>Y max</td>
-            <td><input type="text" name="max"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="확인"></td>
-        </tr>
-    </table>
-</form>
+<div class="row text-center">
+    <h3>산점도</h3>
+    <div class="col-3"></div>
+    <div class="col-6">
+        <form action="/scatter" method="post">
+            <table class="table table-borderless">
+                <tr>
+                    <td style="width: 30%;"><label class="col-form-label">점의 갯수</label></td>
+                    <td style="width: 70%;"><input type="text" name="num" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td><label class="col-form-label">X 평균</label></td>
+                    <td><input type="text" name="mean" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td><label class="col-form-label">X 표준편차</label></td>
+                    <td><input type="text" name="std" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td><label class="col-form-label">Y 최소값</label></td>
+                    <td><input type="text" name="min" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td><label class="col-form-label">Y 최대값</label></td>
+                    <td><input type="text" name="max" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit" class="btn btn-primary">확인</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="col-3"></div>
+</div>
 {%endblock%}

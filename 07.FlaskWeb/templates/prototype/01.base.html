@@ -26,16 +26,16 @@
                     <a class="nav-link" href="#"><i class="far fa-list-alt"></i> 게시판</a>
                 </li>
                 <li class="nav-item ms-3">
-                    <a class="nav-link {% if menu.us %}active{%endif%}" href="#"><i class="fas fa-user-friends"></i> 사용자</a>
+                    <a class="nav-link {% if menu.us %}active{%endif%}" href="/self_intr"><i class="fas fa-user-friends"></i> 사용자</a>
                 </li>
                 <li class="nav-item dropdown ms-3">
-                    <a class="nav-link dropdown-toggle {% if menu.ai %}active{%endif%}" href="#" data-bs-toggle="dropdown">
-                        <i class="fa-solid fa-brain"></i> 인공지능
+                    <a class="nav-link dropdown-toggle {% if menu.cr %}active{%endif%}" href="#" data-bs-toggle="dropdown">
+                        <i class="fa-solid fa-brain"></i> 크롤링
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Link 1</a></li>
-                        <li><a class="dropdown-item" href="#">Link 2</a></li>
-                        <li><a class="dropdown-item" href="#">Link 3</a></li>
+                        <li><a class="dropdown-item" href="/crawling/interpark">인터파크</a></li>
+                        <li><a class="dropdown-item" href="/crawling/genie">지니차트</a></li>
+                        <li><a class="dropdown-item" href="/crawling/siksin">식신</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Another link</a></li>
                     </ul>
@@ -47,7 +47,7 @@
                     <a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>
                 </li>
             </ul>
-            <span class="navbar-text me-3">홍길동님 환영합니다.</span>
+            <span class="navbar-text me-3">{% block weather %}{{weather|safe()}}{% endblock %}</span>
         </div>
     </nav>
 
