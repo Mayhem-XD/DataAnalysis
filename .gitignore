@@ -7,7 +7,7 @@ kakaoapikey.txt
 chromedriver.exe
 LICENSE.chromedriver
 chromedriver_win32
-
+/img
 
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
