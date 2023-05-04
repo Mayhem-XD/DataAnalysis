@@ -36,8 +36,10 @@ def genie():
 @app.route('/crawling/siksin',methods=['GET','POST'])
 def siksin():
     menu = {'ho':0,'us':0,'cr':1,'sc':0}
-    siksin_list = su.siksin_search()
-    return render_template('prototype/siksin.html',menu=menu, weather=get_weather(app),siksin_list=siksin_list)
+    if request.method == 'GET':
+        siksin_list = su.siksin_search()
+    else:
+        return render_template('prototype/siksin.html',menu=menu, weather=get_weather(app),siksin_list=siksin_list)
 
 
 if __name__ == '__main__':
