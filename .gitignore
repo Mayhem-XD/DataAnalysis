@@ -9,7 +9,7 @@ LICENSE.chromedriver
 chromedriver_win32
 img/
 upload/
-
+key/
 
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
