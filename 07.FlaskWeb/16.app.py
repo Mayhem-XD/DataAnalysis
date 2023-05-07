@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request
 from weather_util import get_weather
-import interpark_crawling as ic
-import genie_util as gu
-import siksin_util as su
+import utils as ut
 
 app = Flask(__name__)
 
@@ -24,13 +22,13 @@ def self_intr():
 @app.route('/crawling/interpark',methods=['GET','POST'])
 def interpark():
     menu = {'ho':0,'us':0,'cr':1,'sc':0}
-    booklist = ic.in_bs()
+    booklist = ut.in_bs()
     return render_template('prototype/interpark.html',menu=menu, weather=get_weather(app),booklist=booklist)
 
 @app.route('/crawling/genie',methods=['GET','POST'])
 def genie():
     menu = {'ho':0,'us':0,'cr':1,'sc':0}
-    chart_list = gu.genie_chart()
+    chart_list = ut.genie_chart()
     return render_template('prototype/genie.html',menu=menu, weather=get_weather(app),chart_list=chart_list)
 
 @app.route('/crawling/siksin',methods=['GET','POST'])
@@ -40,7 +38,7 @@ def siksin():
         return render_template('prototype/siksin.html',menu=menu, weather=get_weather(app))
     else:
         place = request.form['place']
-        siksin_list = su.siksin_search(place)
+        siksin_list = ut.siksin_search(place)
         return render_template('prototype/siksin_res.html',menu=menu, weather=get_weather(app),siksin_list=siksin_list)
 
 

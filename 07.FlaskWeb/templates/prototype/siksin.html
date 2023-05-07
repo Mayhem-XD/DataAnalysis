@@ -8,15 +8,17 @@
 {% endblock %}
 {% block subtitle %}식신 장안동 맛집{% endblock %}
 {%block content%}
-    <table class="form-control">
-        <tr>
-            <th colspan="2" class="form-control"><h3>검색어</h3></th>
-        </tr>
-        <tr>
-            <th>
-                <input type="text" name="place" class="form-control">
-            </th>
-            <th><input type="submit" value="확인" class="form-control"></th>
-        </tr>
-    </table>
+    <form action="/crawling/siksin", method="post">
+        <table class="form-control">
+            <tr>
+                <th colspan="2" class="form-control"><h3>검색어</h3></th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="place" class="form-control">
+                    <button type="submit" class="btn btn-primary">확인</button>
+                </td>
+            </tr>
+        </table>
+    </form>
 {%endblock%}
