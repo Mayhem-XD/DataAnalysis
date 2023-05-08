@@ -4,6 +4,53 @@ from bs4 import BeautifulSoup
 import requests,json,folium,os
 import numpy as np
 import matplotlib.pyplot as plt
+from PIL import Image
+
+def find_addr(places):
+    with open('D:/Workspace/03.DataAnalysis/04.지도시각화/data/roadapikey.txt') as f:
+        road_key = f.read()
+    base_url = 'https://www.juso.go.kr/addrlink/addrLinkApiJsonp.do'
+    params1 = f'confmKey={road_key}&currentPage=1&countPerPage=10'
+    params2 = f"keyword={quote('')}&resultType=json"
+    url = f'{base_url}?{params1}&{params2}'
+    road_addr_list = []
+    for plc in places:
+        params2 = f"keyword={quote(plc)}&resultType=json"
+        url = f'{base_url}?{params1}&{params2}'
+        result = requests.get(url)
+        if result.status_code == 200:
+            res = json.loads(result.text[1:-1])
+            road_addr_list.append(res['results']['juso'][0]['roadAddr'])
+        else:
+            print(result.status_code)
+    return road_addr_list
+
+def get_coord(addr):
+    with open('D:/Workspace/03.DataAnalysis/04.지도시각화/data/roadapikey.txt') as f:
+        road_key = f.read()
+    base_url = 'https://www.juso.go.kr/addrlink/addrLinkApiJsonp.do'
+    params1 = f'confmKey={road_key}&currentPage=1&countPerPage=10'
+    params2 = f"keyword={quote(addr)}&resultType=json"
+    url = f'{base_url}?{params1}&{params2}'
+    result = requests.get(url)
+    res = json.loads(result.text[1:-1])
+    road_addr = res['results']['juso'][0]['roadAddr']
+    lat_,lng_ = kakao_location(road_addr)
+
+    return lat_,lng_
+
+
+def kakao_location(place):
+    with open('../04.지도시각화/data/kakaoapikey.txt') as f_:
+        kakao_key = f_.read()
+    base_url = "https://dapi.kakao.com/v2/local/search/address.json"
+    url = f'{base_url}?query={quote(place)}'
+    header = {'Authorization':f'KakaoAK {kakao_key}'}
+    result = requests.get(url, headers=header).json()
+    lat_ = float(result['documents'][0]['y'])
+    lng_ = float(result['documents'][0]['x'])
+    return lat_,lng_
+
 
 def genie_chart():
     header = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'}
@@ -60,27 +107,11 @@ def in_bs():
     return lines
 
 def hot_places(places, app):
-    # 도로명 주소 구하기
-    with open('D:/Workspace/03.DataAnalysis/04.지도시각화/data/roadapikey.txt') as f:
-        road_key = f.read()
+
+    road_addr_list = find_addr(places)
+
     with open('../04.지도시각화/data/kakaoapikey.txt') as f_:
         kakao_key = f_.read()
-    base_url = 'https://www.juso.go.kr/addrlink/addrLinkApiJsonp.do'
-    params1 = f'confmKey={road_key}&currentPage=1&countPerPage=10'
-    params2 = f"keyword={quote('')}&resultType=json"
-    url = f'{base_url}?{params1}&{params2}'
-
-    road_addr_list = []
-    for plc in places:
-        params2 = f"keyword={quote(plc)}&resultType=json"
-        url = f'{base_url}?{params1}&{params2}'
-        result = requests.get(url)
-        if result.status_code == 200:
-            res = json.loads(result.text[1:-1])
-            road_addr_list.append(res['results']['juso'][0]['roadAddr'])
-        else:
-            print(result.status_code)
-
     # df = pd.DataFrame({'이름':list(map(lambda x:x.split()[-1],places)),'주소':road_addr_list})
     df = pd.DataFrame({'이름':places,'주소':road_addr_list})
 
@@ -134,3 +165,21 @@ def siksin_search(place):
         }
         temp_list.append(temp_dict)
     return temp_list
+
+# Pillow Format의 img를 읽어서 중심부의 이미지를 Pillow format으로 반환
+def center_image(img):
+    h,w,_ = np.array(img).shape
+    diff = abs(h - w) // 2
+    if w > h:
+        final_img = np.array(img)[:,diff:diff+h,:]
+    # portrait
+    else:
+        final_img = np.array(img)[diff:diff+w:]
+    new_img = Image.fromarray(final_img)
+    return new_img
+
+def change_profile(app, filename):
+    img = Image.open(filename)
+    new_fname = os.path.join(app.static_folder,'data/profile.png')
+    center_image(img).save(new_fname, format='png')
+    return os.stat(new_fname).st_mtime      # 마지막으로 파일이 수정된 시각(type int)
