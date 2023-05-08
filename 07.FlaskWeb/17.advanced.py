@@ -77,7 +77,7 @@ def siksin():
     else:
         place = request.form['place']
         siksin_list = ut.siksin_search(place)
-        return render_template('prototype/siksin_res.html',menu=menu, weather=get_weather(app),siksin_list=siksin_list,quote=quote,addr=addr)
+        return render_template('prototype/siksin_res.html',menu=menu, weather=get_weather(app),siksin_list=siksin_list,quote=quote,addr=addr,place=place)
 
 
 
