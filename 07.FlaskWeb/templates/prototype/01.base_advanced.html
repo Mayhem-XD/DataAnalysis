@@ -49,8 +49,7 @@
                     <a class="nav-link {% if menu.sc %}active{%endif%}" href="{% if menu.sc %}#{%else%}/schedule{%endif%}"><i class="fa-solid fa-calendar-days"></i> 스케쥴</a>
                 </li>
                 <li class="nav-item ms-3">
-                    <a class="nav-link" href="/user/login"><i class="fas fa-sign-out-alt"></i> 로그인</a>
-                    <!-- <a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> 로그아웃</a> -->
+                    <a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>
                 </li>
             </ul>
             <span class="navbar-text me-3">{% block weather %}{{weather|safe()}}{% endblock %}</span>
@@ -71,7 +70,7 @@
                     </a>
                 </div>
                 <div class="mt-2">
-                    <span id= "quoteMsg"> {{session['quote']}} </span>
+                    <span id= "quoteMsg"> {{quote}} </span>
                     <a href="javascript:changeQuote()"><span class="badge bg-secondary">수정</span></a>
                 </div>
                 <div class="mt-5">
@@ -81,7 +80,7 @@
                     <a href="#" onclick="change_addr(); return false;">
                         <img src="{{url_for('static',filename='img/addr.png')}}" height="16" class="me-2">
                     </a>
-                        <span id="addr">{{session['addr']}}</span>
+                        <span id="addr">{{addr}}</span>
                         <a href="javascript:changWeather()"><span class="badge bg-secondary">날씨</span></a><br>
                         <div id="addrInput" class="mt-2 d-none">
                             <input type="text" id="addrInputTag" class="form-control form-control-sm" onkeyup="if(window.event.keyCode==13) {addrSubmit()}">

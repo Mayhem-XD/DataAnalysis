@@ -1,9 +1,14 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 from weather_util import get_weather
 import utils as ut
-import os, random
+import os, random, json
+from user import user_bp
 
 app = Flask(__name__)
+app.secret_key = 'qwert12345'
+app.config['SESSION_COOKIE_PATH'] = '/'
+
+app.register_blueprint(user_bp,url_prefix='/user')
 
 @app.before_first_request
 def before_first_request():
@@ -13,17 +18,22 @@ def before_first_request():
     with open(filename,encoding='utf-8') as f:
         quotes = f.readlines()
     quote = random.sample(quotes,1)[0]
+    session['quote'] = quote
     addr = '수원시 장안구'
+    session['addr'] = addr
+    
 @app.route('/change_quote')
 def change_quote():
     global quote
     quote = random.sample(quotes,1)[0]
+    session['quote'] = quote
     return quote
 
 @app.route('/change_addr')
 def change_addr():
     global addr
     addr = request.args.get('addr')
+    session['addr'] = addr
     return addr
 
 @app.route('/change_weather')
@@ -41,11 +51,10 @@ def change_profile():
     mtime = ut.change_profile(app,filename)
     return str(mtime)
 
-@app.route('/user')
-def user():
-    menu = {'ho':0,'us':1,'cr':0,'sc':0}
-    return redirect('/schedule')
-
+# @app.route('/user')
+# def user():
+#     menu = {'ho':0,'us':1,'cr':0,'sc':0}
+#     return redirect('/schedule')
 
 @app.route('/')
 def home():
