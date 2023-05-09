@@ -56,6 +56,6 @@ function imageSubmit(){
         }
     });
 }
-// function showHotplaces(){
-//     $('#resDiv').attr('class','mt-2')
-// }
+function showHotplaces(){
+    $('#resDiv').attr('class','mt-2')
+}

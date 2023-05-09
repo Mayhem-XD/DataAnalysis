@@ -12,11 +12,11 @@
         <input type="text" name="place1">
         <input type="text" name="place2">
         <input type="text" name="place3">
-        <input type="submit" value="제출">
+        <input type="submit" value="제출" onclick="showHotplaces(); return false;">
     </table>
 </form>
-<!-- <div class="mt-2 d-none" id="resDiv">
+<div class="mt-2 d-none" id="resDiv">
     <iframe src="{{url_for('static',filename='img/Hotplaces.html')}}" frameborder="1" width="800px" height="500px"></iframe>
     <button onclick="location.href='/python/hotplace'">재실행</button>
-</div> -->
+</div>
 {%endblock%}

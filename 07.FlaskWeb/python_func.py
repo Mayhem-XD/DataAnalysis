@@ -11,10 +11,10 @@ def hotplace():
     if request.method == 'GET':
         return render_template('prototype/python/hotplace.html',menu=menu,weather=get_weather(app),quote=session['quote'],addr=session['addr'])
     else:
-        # client 가 입력한 장소
         place1 = request.form['place1']
         place2 = request.form['place2']
         place3 = request.form['place3']
         places = [place1, place2, place3]
         ut.hot_places(places, app)
-        return render_template('prototype/python/hotplace_res.html',menu=menu,weather=get_weather(app),quote=session['quote'],addr=session['addr'])
+        return None
+
