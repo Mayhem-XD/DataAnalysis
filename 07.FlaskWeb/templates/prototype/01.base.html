@@ -42,18 +42,27 @@
                         <li><a class="dropdown-item" href="/crawling/genie">지니차트</a></li>
                         <li><a class="dropdown-item" href="/crawling/siksin">식신</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Another link</a></li>
+                        <li><a class="dropdown-item" href="/crawling/genie_jquery">지니차트-jQuery버전</a></li>
                     </ul>
                 </li>
                 <li class="nav-item ms-3">
                     <a class="nav-link {% if menu.sc %}active{%endif%}" href="{% if menu.sc %}#{%else%}/schedule{%endif%}"><i class="fa-solid fa-calendar-days"></i> 스케쥴</a>
                 </li>
                 <li class="nav-item ms-3">
+                    {% if session['uid'] %}
+                    <a class="nav-link" href="/user/logout"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>
+                    {% else %}
                     <a class="nav-link" href="/user/login"><i class="fas fa-sign-out-alt"></i> 로그인</a>
-                    <!-- <a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> 로그아웃</a> -->
+                    {% endif %}
                 </li>
             </ul>
-            <span class="navbar-text me-3">{% block weather %}{{weather|safe()}}{% endblock %}</span>
+            <span class="navbar-text me-3">
+                {% if session['uid'] %}
+                    {{session['uid']}}님 환영합니다.
+                {% else %}
+                    {% block weather %}{{weather|safe()}}{% endblock %}
+                {% endif %}
+            </span>
         </div>
     </nav>
 
@@ -107,5 +116,12 @@
             </span>
         </div>
     </nav>
+    {%with messages = get_flashed_messages()%}
+    {%if messages %}
+        <script type="text/javascript">
+            alert("{{messages[-1]}}");
+        </script>
+    {%endif%}
+    {%endwith%}
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, flash
 from weather_util import get_weather
 import utils as ut
 import os, random, json
@@ -63,6 +63,11 @@ def home():
 
 @app.route('/schedule')
 def schedule():
+    try:
+        _ = session['uid']
+    except:
+            flash('스케줄을 확인하려면 로그인하여야 합니다.')
+            return redirect('/user/login')
     menu = {'ho':0,'us':0,'cr':0,'sc':1}
     return render_template('prototype/02.schedule.html',menu=menu, weather=get_weather(app),quote=quote,addr=addr)
 
@@ -82,6 +87,12 @@ def genie():
     menu = {'ho':0,'us':0,'cr':1,'sc':0}
     chart_list = ut.genie_chart()
     return render_template('prototype/genie.html',menu=menu, weather=get_weather(app),chart_list=chart_list,quote=quote,addr=addr)
+
+@app.route('/crawling/genie_jquery',methods=['GET','POST'])
+def genie_jquery():
+    menu = {'ho':0,'us':0,'cr':1,'sc':0}
+    chart_list = ut.genie_chart()
+    return render_template('prototype/genie_jquery.html',menu=menu, weather=get_weather(app),chart_list=chart_list,quote=quote,addr=addr)
 
 @app.route('/crawling/siksin',methods=['GET','POST'])
 def siksin():

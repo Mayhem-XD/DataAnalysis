@@ -57,4 +57,20 @@
             <div class="col-4"></div>
         </div>
     </div>
+    {% block additional_body %}{% endblock %}
+    <nav class="navbar navbar-expand-sm bg-light fixed-bottom">
+        <div class="container-fluid justify-content-center">
+            <span class="navbar-text">
+                Copyright &copy; 2023 JKH World Corp. All rights reserved.
+            </span>
+        </div>
+    </nav>
+    {%with messages = get_flashed_messages()%}
+    {%if messages %}
+        <script type="text/javascript">
+            alert("{{messages[-1]}}");
+        </script>
+    {%endif%}
+    {%endwith%}
 </body>
+</html>
