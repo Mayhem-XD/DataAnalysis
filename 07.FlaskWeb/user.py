@@ -5,7 +5,7 @@ user_bp = Blueprint('user_bp',__name__)
 
 @user_bp.route('/login', methods=['GET','POST'])
 def login():
-    menu = {'ho':0,'us':0,'cr':0,'sc':0}
+    menu = {'ho':0,'nb':0,'us':1,'cr':0,'sc':0,'py':0}
     if request.method == 'GET':
         return render_template('/prototype/user/login.html',menu=menu)
     else:

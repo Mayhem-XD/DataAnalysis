@@ -1,0 +1,8 @@
+{% extends "prototype/01.base.html" %}
+{%block title%}수원 Hot Places{%endblock%}
+{% block additional_head %}{% endblock %}
+{%block subtitle%}수원 Hot Places{%endblock%}
+{%block content%}
+    <iframe src="{{url_for('static',filename='img/Hotplaces.html')}}" frameborder="1" width="800px" height="500px"></iframe>
+    <button onclick="location.href='/python/hotplace'">재실행</button>
+{%endblock%}

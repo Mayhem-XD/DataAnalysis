@@ -28,7 +28,7 @@
                     <a class="nav-link {% if menu.ho %}active{%endif%}" href="{% if menu.ho %}#{%else%}/{%endif%}"><i class="fas fa-home"></i> Home</a>
                 </li>
                 <li class="nav-item ms-3">
-                    <a class="nav-link {% if menu.ho %}active{%endif%}" href="/self_intr"><i class="far fa-list-alt"></i> 게시판</a>
+                    <a class="nav-link {% if menu.nb %}active{%endif%}" href="#"><i class="far fa-list-alt"></i> 게시판</a>
                 </li>
                 <li class="nav-item ms-3">
                     <a class="nav-link {% if menu.us %}active{%endif%}" href="/self_intr"><i class="fas fa-user-friends"></i> 사용자</a>
@@ -43,6 +43,18 @@
                         <li><a class="dropdown-item" href="/crawling/siksin">식신</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/crawling/genie_jquery">지니차트-jQuery버전</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown ms-3">
+                    <a class="nav-link dropdown-toggle {% if menu.py %}active{%endif%}" href="#" data-bs-toggle="dropdown">
+                        <i class="fa-solid fa-brain"></i> 파이썬
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/python/hotplace">핫플레이스</a></li>
+                        <li><a class="dropdown-item" href="#">공원현황</a></li>
+                        <li><a class="dropdown-item" href="#">미정</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">more</a></li>
                     </ul>
                 </li>
                 <li class="nav-item ms-3">
