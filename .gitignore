@@ -10,7 +10,8 @@ chromedriver_win32
 img/
 upload/
 key/
-
+sub_arr_info_key.txt
+sub_rt_lo_key.txt
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
 
