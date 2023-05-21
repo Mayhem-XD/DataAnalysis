@@ -1,10 +1,11 @@
-from urllib.parse import quote
-import pandas as pd
-from bs4 import BeautifulSoup
-import requests,json,folium,os
 import numpy as np
-import matplotlib.pyplot as plt
+import pandas as pd
 from PIL import Image
+from bs4 import BeautifulSoup
+from urllib.parse import quote
+import requests,json,folium,os
+import matplotlib.pyplot as plt
+from folium.plugins import MarkerCluster
 
 def find_addr(places):
     with open('D:/Workspace/03.DataAnalysis/04.지도시각화/data/roadapikey.txt') as f:
@@ -146,6 +147,7 @@ def draw_scatter(num,mean,std,min,max,app):
     plt.scatter(xs,ys)
     filename = os.path.join(app.static_folder,'img/scatter.png')
     plt.savefig(filename)
+    return None
 
 def siksin_search(place):
     base_url = 'https://www.siksinhot.com/search'
@@ -183,3 +185,80 @@ def change_profile(app, filename):
     new_fname = os.path.join(app.static_folder,'data/profile.png')
     center_image(img).save(new_fname, format='png')
     return os.stat(new_fname).st_mtime      # 마지막으로 파일이 수정된 시각(type int)
+
+def rtn_addr(target,df_st):
+    str_addr = df_st[df_st.역명 == target].도로명주소.values[-1]
+    return str_addr.strip()
+
+def get_stnar(target):
+    with open('data/sub_arr_info_key.txt') as f:
+        info_key = f.read()
+    df_st = pd.read_csv('data/st_addr_20230518.csv')
+    target = target
+    target = target[:-1] if target[-1] == '역' else target
+    base_url = "http://swopenAPI.seoul.go.kr/api/subway/"
+    params1 = f"{info_key}/json/realtimeStationArrival/0/16/"
+    params2 = quote(target)
+    url = f"{base_url}{params1}{params2}"
+    response = requests.get(url)
+    res = json.loads(response.text)
+    df = pd.DataFrame(res['realtimeArrivalList'])
+    df = df[['updnLine','trainLineNm','statnNm','bstatnNm','arvlMsg2','arvlMsg3','subwayId','arvlCd']]
+    df.subwayId = df.subwayId.astype(int)
+    df1 = df[df.updnLine == '상행'].head(4).copy()
+    df2 = df[df.updnLine == '하행'].head(4).copy().reset_index(drop=True)
+
+    temp1 =[]
+    for i in df1.index:
+        bst = df1.arvlMsg3[i].strip()
+        temp1.append(kakao_location(rtn_addr(bst,df_st)))
+    df_test = pd.DataFrame(temp1,columns=('lat','lng'))
+    df1 = pd.concat([df1, df_test], axis=1)
+    temp1 =[]
+    for i in df2.index:
+        bst = df2.arvlMsg3[i].strip()
+        temp1.append(kakao_location(rtn_addr(bst,df_st)))
+        
+    df_test = pd.DataFrame(temp1,columns=('lat','lng'))
+    df2 = pd.concat([df2, df_test], axis=1)
+    lat,lng = kakao_location(rtn_addr(target,df_st))
+
+    return df1, df2, lat,lng
+
+def get_rtstnar_map(app,df1,df2,lat,lng):
+    
+    stn_map = folium.Map(location=[lat,lng],zoom_start=13)
+    marker_cluster = MarkerCluster().add_to(stn_map)
+
+    for i in df1.index:
+        icon_image = f'data/icons/sb-{df1.subwayId[i]%1000}.png'
+        if not os.path.exists(icon_image):
+            icon_image = f'data/icons/sb-init.png'
+        pushpin = folium.CustomIcon(icon_image=icon_image, icon_size=(40,40))
+        popup_text = f"{df1.arvlMsg2[i]}<br>{df1.updnLine[i]}"
+        folium.Marker(
+            location=[df1.lat[i], df1.lng[i]], 
+            popup=folium.Popup(popup_text,max_width=300),
+            tooltip=df1.arvlMsg3[i],
+            icon=pushpin
+        ).add_to(marker_cluster)
+
+    for i in df2.index:
+        icon_image = f'data/icons/sb-{df2.subwayId[i]%1000}.png'
+        if not os.path.exists(icon_image):
+            icon_image = f'data/icons/sb-init.png'
+        pushpin = folium.CustomIcon(icon_image=icon_image, icon_size=(40,40),)
+        popup_text = f"{df2.arvlMsg2[i]}<br>{df2.updnLine[i]}"
+        folium.Marker(
+            location=[df2.lat[i], df2.lng[i]], 
+            popup=folium.Popup(popup_text,max_width=300),
+            tooltip=df2.arvlMsg3[i],
+            icon=pushpin
+        ).add_to(marker_cluster)
+
+    title_html = '<h3 align="center" style="font-size:20px">지하철 실시간 도착정보</h3>'
+    stn_map.get_root().html.add_child(folium.Element(title_html))
+    filename = os.path.join(app.static_folder,'img/rtstn.html')
+    stn_map.save(filename)
+    # 
+    return None
