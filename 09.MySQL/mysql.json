@@ -1,0 +1,7 @@
+{
+    "host":"localhost",
+    "user":"ysuser",
+    "password":"yspass",
+    "database":"world",
+    "port":3306
+}
