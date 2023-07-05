@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <h3>히트곡 수정</h3>
+    <hr>
+    <form action="/song/update/{{sid}}" method="post">
+        <input type="text" name="title" id="n_title" placeholder="제목">
+        <input type="text" name="lyrics" id="n_lyrics" placeholder="가사">
+        <input type="submit">
+    </form>
+</body>
+</html>

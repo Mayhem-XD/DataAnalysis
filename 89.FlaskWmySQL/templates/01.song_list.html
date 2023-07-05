@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kpop hit song</title>
+</head>
+<body style="margin: 40px;">
+    <h3>히트곡 목록</h3>
+    <hr>
+    <table border="1">
+        <tr><th>ID</th><th>제목</th><th>가사</th><th>편집</th></tr>
+        {% for song in songs %}
+        <tr>
+            <td style="padding: 2px;">{{song[0]}}</td>
+            <td style="padding: 2px;">{{song[1]}}</td>
+            <td style="padding: 2px;">{{song[2]}}</td>
+            <td style="padding: 2px;">
+                <a href="/song/update/{{song[0]}}">수정</a>
+                <a href="/song/delete/{{song[0]}}">삭제</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

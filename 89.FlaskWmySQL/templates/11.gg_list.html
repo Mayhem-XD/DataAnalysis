@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kpop girl group</title>
+</head>
+<body style="margin: 40px;">
+    <h3>걸그룹 목록</h3>
+    <hr>
+    <table border="1">
+        <tr><th>ID</th><th>걸그룹</th><th>데뷔일자</th><th>힛트곡</th></tr>
+        {% for group in groups %}
+        <tr>
+            <td style="padding: 2px;">{{group[0]}}</td>
+            <td style="padding: 2px;">{{group[1]}}</td>
+            <td style="padding: 2px;">{{group[2]}}</td>
+            <td style="padding: 2px;">{{group[3]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
